@@ -5,11 +5,16 @@ from django.http       import HttpResponseRedirect
 from django.http       import HttpResponse
 
 from apps.settings     import *
+from hhms.requestUtil  import *
 
 import urllib
 import urllib2
 import cookielib
 
+def log(value):
+    file = open("140925.log", "w")
+    file.write(str(value))
+    file.close()
 
 def home(request):
     return render_to_response( 'login.html',
@@ -20,5 +25,17 @@ def loginSubmit(request):
     if not request.POST:
         return HttpResponseRedirect('/')
     else:
-        # send POST request with request.POST
+        auth = {}
+        for key, value in request.POST.iteritems():
+            try:
+                auth[str(key)] = int(value)
+            except:
+                auth[str(key)] = str(value)
+
+
+        url = "https://webappsca.pcrsoft.com/Clue/Student-Assignments/7536"
+        pcr = sendPostRequest(url, **auth)
+
+        log(auth)
+
         return HttpResponseRedirect('/')

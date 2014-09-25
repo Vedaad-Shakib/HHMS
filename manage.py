@@ -2,7 +2,7 @@
 import os
 import sys
 
-from updateLogin import *
+from hhms.requestUtil import *
 
 if __name__ == "__main__":
     updateLogin()
