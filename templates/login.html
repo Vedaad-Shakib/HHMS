@@ -8,8 +8,8 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <link id="ctl00_ctl00_AdditionalMasterStyle" rel="stylesheet" type="text/css" /><link id="ctl00_ctl00_favicon" rel="shortcut icon" type="image/x-icon" /><link href="/Clue/Telerik.Web.UI.WebResource.axd?compress=1&amp;_TSM_CombinedScripts_=%3b%3bTelerik.Web.UI%2c+Version%3d2014.1.403.45%2c+Culture%3dneutral%2c+PublicKeyToken%3d121fae78165ba3d4%3aen-US%3a68d9452f-f268-45b2-8db7-8c3bbf305b8d%3aef4a543%3bTelerik.Web.UI.Skins%2c+Version%3d2014.1.403.45%2c+Culture%3dneutral%2c+PublicKeyToken%3d121fae78165ba3d4%3aen-US%3a12e317e6-9ce9-4795-aec9-83d89446d193%3ae0f71c1f" type="text/css" rel="stylesheet" /></head>
 <body>
-    <form name="aspnetForm" method="post" action="loginSubmit/?returnUrl=https%3a%2f%2fwebappsca.pcrsoft.com%2fClue%2fDefault.aspx%3fpid%3d7536" id="aspnetForm">
-<input type="hidden" name="ctl00_ctl00_RadScriptManager1_TSM" id="ctl00_ctl00_RadScriptManager1_TSM" value="" />
+    <form name="aspnetForm" method="post" action="loginSubmit/" id="aspnetForm">
+{% csrf_token %}<input type="hidden" name="ctl00_ctl00_RadScriptManager1_TSM" id="ctl00_ctl00_RadScriptManager1_TSM" value="" />
 <input type="hidden" name="ctl00_ctl00_RadStyleSheetManager1_TSSM" id="ctl00_ctl00_RadStyleSheetManager1_TSSM" value="" />
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUENTM4MQ9kFgJmD2QWAmYPZBYEAgEPZBYEAgMPFgIeBGhyZWYFMS8vd3d3Lmhhcmtlci5vcmcvdXBsb2FkZWQvdGhlbWVzL3Bjci9oYXJrZXItMi5jc3NkAggPFgIfAGRkAgMPZBYEZg9kFgQCBQ8PFgIeElJlc29sdmVkUmVuZGVyTW9kZQspclRlbGVyaWsuV2ViLlVJLlJlbmRlck1vZGUsIFRlbGVyaWsuV2ViLlVJLCBWZXJzaW9uPTIwMTQuMS40MDMuNDUsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49MTIxZmFlNzgxNjViYTNkNAEWAh4Fc3R5bGUFDWRpc3BsYXk6bm9uZTtkAgkPZBYCAgEPZBYIAgEPZBYCAgIPZBYCAgEPFgQeD1N0b3JlZFBvc2l0aW9ucwUCe30eDVN0b3JlZEluZGljZXMFAnt9ZAIDD2QWAgICD2QWAgIBDxYEHwMFAnt9HwQFAnt9ZAIPD2QWEAIBD2QWBGYPDxYEHghDc3NDbGFzc2UeBF8hU0ICAmQWAgIBD2QWAgIBDzwrAAoBAA8WAh4SRGVzdGluYXRpb25QYWdlVXJsBThodHRwczovL3dlYmFwcHNjYS5wY3Jzb2Z0LmNvbS9DbHVlL0RlZmF1bHQuYXNweD9waWQ9NzUzNmQWAmYPZBYCAg8PEA8WAh4HQ2hlY2tlZGdkZGRkAgIPFgIeBUNsYXNzZRYCAgEPFgQfAwUCe30fBAUCe31kAgMPZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kAgUPZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kAgcPZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kAgkPZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kAgsPZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kAg0PZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kAg8PZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kAhEPZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kAgEPZBYCAgEPZBYCAgIPZBYCAgEPFgQfAwUCe30fBAUCe31kGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYEBR1jdGwwMCRjdGwwMCRSYWRGb3JtRGVjb3JhdG9yMQVEY3RsMDAkY3RsMDAkYmFzZUNvbnRlbnQkYmFzZUNvbnRlbnQkZmxhc2hUb3AkY3RsMDAkTG9naW4xJFJlbWVtYmVyTWUFOWN0bDAwJGN0bDAwJGJhc2VDb250ZW50JExvZ291dENvbnRyb2wxJExvZ2luU3RhdHVzMSRjdGwwMQU5Y3RsMDAkY3RsMDAkYmFzZUNvbnRlbnQkTG9nb3V0Q29udHJvbDEkTG9naW5TdGF0dXMxJGN0bDAzlN4tGyTwKoX0mdr7UsVBgKrotQQ=" />
 
@@ -119,7 +119,7 @@
 
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-2450420-3']);
-        _gaq.push(['_trackPageview', 'Student-Portal-Login-LDAP/loginSubmit/']);
+        _gaq.push(['_trackPageview', 'Student-Portal-Login-LDAP/8464']);
         
     (function () {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -260,7 +260,7 @@ if (typeof(Telerik) != 'undefined' && Type.isNamespace(Telerik.Web))
     
     
             <span id="ctl00_ctl00_baseContent_SiteMapPath1_rptSiteMapPath_ctl00_lblSeparator" class="sitemapNodeSeparator"></span>
-            <a id="ctl00_ctl00_baseContent_SiteMapPath1_rptSiteMapPath_ctl00_hl" class="sitemapNode" href="loginSubmit/">Student Portal Login LDAP</a>
+            <a id="ctl00_ctl00_baseContent_SiteMapPath1_rptSiteMapPath_ctl00_hl" class="sitemapNode" href="8464">Student Portal Login LDAP</a>
         
 </div>
 
