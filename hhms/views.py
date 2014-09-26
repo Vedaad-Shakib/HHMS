@@ -33,9 +33,9 @@ def loginSubmit(request):
                 auth[str(key)] = str(value)
 
 
-        url = "https://webappsca.pcrsoft.com/Clue/Student-Assignments/7536"
+        url = "https://webappsca.pcrsoft.com/Clue/Student-Portal-Login-LDAP/8464?returnUrl=https%3a%2f%2fwebappsca.pcrsoft.com%2fClue%2fStudent-Assignments%2f7536"
         pcr = sendPostRequest(url, **auth)
+        
+        log(pcr)
 
-        log(auth)
-
-        return HttpResponseRedirect('/')
+        return HttpResponse(pcr)
