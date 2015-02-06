@@ -37,20 +37,31 @@
 		    {% for j in i|slice:"1:-1" %}
 		        <td>
 		            {% for k in j %}
+			        <!-- if there is an assignment description -->
 		                {% if k.2 %}
-			            {{ k.1 }} ({{ k.0 }}): <br><br>
-			            &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }} <br><br><br><br>
+			            <b>{{ k.1 }} ({{ k.0 }}):</b> <br>
+				    &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }}
+				    <!-- if it is the last one, no horizontal line -->
+			            {% if forloop.counter != j|length %}
+				        <hr>
+				    {% endif %}
 			        {% else %}
-			            {{ k.1 }} ({{ k.0 }}) <br><br><br><br>
+			            <b>{{ k.1 }} ({{ k.0 }})</b>
+				    {% if forloop.counter != j|length %}
+				        <hr>
+				    {% endif %}
 			    {% endif %}
 			    {% endfor %}
 			</td>
 		    {% endfor %}
-		    <!-- later assignments have special format -->
+		    <!-- ongoing assignments have special format -->
 		    <td>
 			{% for k in i|last_elem %}
-			    {{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }}: <br><br>
-		            &nbsp;&nbsp;&nbsp;&nbsp;{{ k.3 }} <br><br><br><br>
+			    <b>{{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }}: </b> <br>
+		            &nbsp;&nbsp;&nbsp;&nbsp;{{ k.3 }}
+			    {% if forloop.counter != i|last_elem|length %}
+			        <hr>
+			    {% endif %}
 			{% endfor %}
 		    </td>
 		</tr>

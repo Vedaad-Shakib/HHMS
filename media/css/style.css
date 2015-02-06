@@ -27,7 +27,7 @@ body {
 
 /*Centers an image both vertically and horizontally*/
 .centered {
-	width: 50%;
+  	width: 50%;
 	margin: auto;
 	position: absolute;
 	top: 50%; left: 50%;
