@@ -3,6 +3,7 @@
 from StringIO import StringIO
 from bs4      import BeautifulSoup
 from datetime import date
+from datetime import datetime
 import pycurl
 import re
 import time
@@ -47,9 +48,9 @@ def parsePage(text):
 
         tmp.append(i["title"][:nameStart])
         tmp.append(i["title"][nameStart+2:nameEnd])
-        tmp.append(date(dates[0][2], dates[0][0], dates[0][1]))
-        try: tmp.append(date(dates[1][2], dates[1][0], dates[1][1]))
-        except: tmp.append(date(dates[0][2], dates[0][0], dates[0][1]))
+        tmp.append(datetime(dates[0][2], dates[0][0], dates[0][1]))
+        try: tmp.append(datetime(dates[1][2], dates[1][0], dates[1][1]))
+        except: tmp.append(datetime(dates[0][2], dates[0][0], dates[0][1]))
         tmp.append(i["title"][nameEnd+13:])
         tmp.append(body[10])
         
