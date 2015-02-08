@@ -1,0 +1,183 @@
+/*====Daily and Weekly Student Page Styles====*/
+body {
+
+}
+
+/*Collapses borders, wraps words for tables*/
+table {
+	border-collapse: collapse;
+	word-wrap: break-word;
+	table-layout: fixed;
+	width: 100%;
+}
+
+/*Draws borders around the cells of the table*/
+table, th, td {
+	border: 1px solid black;
+	padding: 5px 10px;
+}
+
+td {
+	vertical-align: top;
+}
+
+/*Sets every even column to a light grey*/
+td:nth-child(even), th:nth-child(even) {
+	background-color: #CDCDCD;
+}
+
+/*Sets every odd column to a dark grey*/
+td:nth-child(odd), th:nth-child(odd) {
+	background-color: #A8A8A8;
+}
+
+/*Sets the width of the columns for daily view to be 1 / numcolumns = 1/4 = 0.25*/
+.daily-view th, .daily-view td {
+	min-width: 25%;
+	width: 25%;
+	max-width: 25%;
+}
+
+/*Sets the width of the columns for weekly view to be 1 / numcolumns = 1/7 = 0.14286*/
+.weekly-view th, .weekly-view td {
+	min-width: 14.286%;
+	width: 14.286%;
+	max-width: 14.286%;
+}
+
+/*The header on top of each page with the logo and title*/
+#header {
+	width: 100%;
+	top: 0;
+	color: white;
+	background-color: #336666;
+	position: fixed;
+	z-index: 1;
+	padding-top: 10px;
+	padding-left: 50px;
+	height: 30px;
+	border-color: #005447 !important;
+	border-top: solid;
+	border-left: solid;
+	overflow: hidden;
+	font-size: 20px;
+}
+
+/*The Harker logo in the top left corner of the screen*/
+#logo {
+	position: absolute;
+	left: -2px;
+	top: -2px;
+}
+
+/*The message with the user's name and logout*/
+#account-info {
+	position: fixed;
+	float: right;
+	text-align: center;
+	right: 20px;
+	top: 5px;
+	font-size: 15px;
+}
+
+/*The white background for the assignment head*/
+.assignment-head-wrapper {
+	position: fixed;
+	width: 100%;
+	background-color: #FFFFFF;
+	height: 80px;
+	top: 43px;
+	z-index: 1;
+}
+
+/*The assignment portion of the header which displays the current date along with mode switching*/
+#assignment-head {
+	position: fixed;
+	text-align: center;
+	margin: 1.00em auto;
+	width: 100%;
+	max-width: 675px;
+	font-size: 12px;
+	z-index: 2;
+	top: 33px;
+}
+
+/*Portion of the assignment header that displays the view date*/
+#assignment-date {
+	display: inline;
+	/*-webkit-touch-callout: initial;*/
+	-webkit-user-select: initial;
+	-khtml-user-select: initial;
+	-moz-user-select: initial;
+	-ms-user-select: initial;
+	user-select: initial;
+}
+
+/*The link to click to switch the view type*/
+#switch-view {
+	font-size: 15px;
+}
+
+/*The left arrow for date switching*/
+#left-arrow {
+	float: left;
+}
+
+/*The right arrow for date switching*/
+#right-arrow {
+	float: right;
+}
+
+/*Transition for arrows and cursor*/
+#left-arrow, #right-arrow {
+	margin-top: -10px;
+	cursor: pointer;
+	padding: 0 12px;
+	font-weight: normal;
+	transition: padding .2s;
+	-webkit-transition: padding .2s;
+	font-size: 40px;
+}
+
+/*Animation for left arrow*/
+#left-arrow:hover {
+	padding: 0 20px 0 4px;
+}
+
+/*Animation for right arrow*/
+#right-arrow:hover {
+	padding: 0 4px 0 20px;
+}
+
+/*Animation for both arrows*/
+#left-arrow:hover, #right-arrow:hover {
+	font-weight: bold;
+}
+
+/*The head row with dates that scrolls down*/
+#headerTable {
+	position: fixed;
+	top: 120px;
+	z-index: 1;
+	width: 100%;
+}
+
+/*The table of courses and assignments*/
+#innerTable {
+	position: relative;
+	top: 150px;
+}
+
+/*The copyright at the bottom of the screen*/
+#copyright {
+	position: relative;
+	width: 100%;
+	color: white;
+	background-color: #336666;
+	bottom: -150px;
+	z-index: 1;
+	height: 30px;
+	padding-top: 15px;
+	vertical-align: middle;
+	text-align: center;
+}
