@@ -1,8 +1,17 @@
 from django.conf.urls import url
 from django.conf.urls import patterns
 from django.conf.urls import include
+from django.conf      import settings
 
 urlpatterns = patterns('hhms.views',
-    url(r'^$',             'home'       ),
-    url(r'^loginSubmit/$', 'loginSubmit'),
+                       url(r'^$',               'login'      ),
 )
+
+urlpatterns += patterns('',
+                        (r'^.*/media/(?P<path>.*)$',         'django.views.static.serve',
+                         {'document_root': settings.MEDIA_ROOT}
+                         ),
+                        (r'media/(?P<path>.*)$',             'django.views.static.serve',
+                         {'document_root': settings.MEDIA_ROOT}
+                         ),
+                        )

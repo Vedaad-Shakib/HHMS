@@ -2,10 +2,7 @@
 import os
 import sys
 
-from hhms.requestUtil import *
-
 if __name__ == "__main__":
-    updateLogin()
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "apps.settings")
 
     from django.core.management import execute_from_command_line

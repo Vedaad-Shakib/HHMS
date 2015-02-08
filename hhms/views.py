@@ -6,36 +6,52 @@ from django.http       import HttpResponse
 
 from apps.settings     import *
 from hhms.requestUtil  import *
+from datetime          import date
 
-import urllib
-import urllib2
-import cookielib
-
-def log(value):
-    file = open("140925.log", "w")
-    file.write(str(value))
-    file.close()
-
-def home(request):
-    return render_to_response( 'login.html',
-                               { },
-                               context_instance=RequestContext(request))
-
-def loginSubmit(request):
+def login(request):
     if not request.POST:
-        return HttpResponseRedirect('/')
+        return render_to_response('login.html',
+                                  {},
+                                  context_instance=RequestContext(request))
     else:
-        auth = {}
-        for key, value in request.POST.iteritems():
-            try:
-                auth[str(key)] = int(value)
-            except:
-                auth[str(key)] = str(value)
+        username = request.POST["username"]
+        password = request.POST["password"]
 
-
-        url = "https://webappsca.pcrsoft.com/Clue/Student-Portal-Login-LDAP/8464?returnUrl=https%3a%2f%2fwebappsca.pcrsoft.com%2fClue%2fStudent-Assignments%2f7536"
-        pcr = sendPostRequest(url, **auth)
+        page      = getPage(str(username), str(password))
         
-        log(pcr)
+        # strange error that you sometimes have to send two requests
+        if "Login" in page:
+            page  = getPage(str(username), str(password))
+            
+        currMonth = parsePage(page)
 
-        return HttpResponse(pcr)
+        mode = getMode(page)
+        if mode != "Month":
+            return render_to_response('login.html',
+                                      {"error": True,
+                                       "mode": mode,},
+                                      context_instance=RequestContext(request))
+
+        homework = []
+        classes = {}
+        nClasses = 0
+        for i in currMonth:
+            if classes.has_key(str(i[1])):
+                if i[3].isocalendar()[1] == date.today().isocalendar()[1] and i[3].day > 1:
+                    homework[classes[str(i[1])]][i[3].day-1].append((i[0], i[4], i[5])) 
+            else:
+                classes[i[1]] = nClasses
+                nClasses += 1
+                homework.append([i[1], [],[],[],[], [], []])
+                if i[3].isocalendar()[1] == date.today().isocalendar()[1] and i[3].day > 1:
+                    homework[classes[str(i[1])]][i[3].day-1].append((i[0], i[4], i[5])) 
+
+        classes = sorted(classes, key=classes.get)
+
+        return render_to_response('studentPageWeekly.html',
+                                  {"homework": homework,
+                                   "nClasses": nClasses,
+                                   "classes":  classes,
+                                   "name":     str(username)[2:-1].title() + " " + str(username)[-1].title() + "."},
+                                  context_instance=RequestContext(request))
+    
