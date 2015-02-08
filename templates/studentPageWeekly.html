@@ -1,4 +1,5 @@
 {% load get_range %}
+{% load last_elem %}
 <html>
     <head>
 	<link rel="stylesheet" type="text/css" href="media/css/style.css">
@@ -24,14 +25,21 @@
 	    {% for i in homework %}
 	        <tr>
 		    <th>{{ i.0 }}</th>
-		    {% for j in i|slice:"1:" %}
+		    {% for j in i|slice:"1:-1" %}
 		        <td>
-		        {% for k in j %}
-		            {{ k.1 }} ({{ k.0 }}): <br><br>
-			    &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }} <br><br><br><br>
-			{% endfor %}
+		            {% for k in j %}
+		                {{ k.1 }} ({{ k.0 }}): <br><br>
+			        &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }} <br><br><br><br>
+			    {% endfor %}
 			</td>
 		    {% endfor %}
+		    <!-- later assignments have special format -->
+		    <td>
+			{% for k in i|last_elem %}
+			    {{ k.2 }} ({{ k.0 }}) -- {{ k.1 }}: <br><br>
+		            &nbsp;&nbsp;&nbsp;&nbsp;{{ k.3 }} <br><br><br><br>
+			{% endfor %}
+		    </td>
 		</tr>
 	    {% endfor %}
 	</table><br>
