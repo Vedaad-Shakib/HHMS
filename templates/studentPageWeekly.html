@@ -2,23 +2,32 @@
 {% load last_elem %}
 <html>
     <head>
+	<link rel="stylesheet" type="text/css" href="media/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="media/css/style.css">
+	<link rel="stylesheet" type="text/css" href="media/css/student.css">
     </head>
-    <body class="weeklyView">
-	<div class="header"><img id="logo" src="media/img/logo.gif">Harker Homework Management System 2.0 
-	    <span id="accountInfo">Hi, {{ name }}! <br> Not you? <a href="/">Logout</a></span>
+    <body class="weekly-view">
+	<div id="header"><img id="logo" src="media/img/logo.gif">
+	    Harker Homework Management System 2.0 
+	    <span id="account-info">Hi, {{ name }}! <br> Not you? <a href="/">Logout</a></span>
 	</div>
-	<div id="assignmentHead">Assignments for the week of February 1st, 2015 <br>
-	    <a href="last">Last Week</a> <span style="font-size:10px">/</span> <a href="next">Next Week</a></div> <br><br>
+	<div class="assignment-head-wrapper"></div>
+	<div class="centered-horizontal" id="assignment-head">
+	    <h1>
+		<span id="assignment-date">Assignments for the Week of {{ today }}</span>
+		<span id="left-arrow">&#8249;</span>
+		<span id="right-arrow">&#8250;</span>
+		<br>
+		<a id="switch-view" href="studentPageDaily.html">Daily View</a>
+	    </h1>
+	</div>
+
 	<table id="headerTable">
 	    <tr>
-		<th style="border-left: 1px solid;border-right: 1px solid"></th>
-		<th>Monday, Feb. 2</th>
-		<th>Tuesday, Feb 3</th>
-		<th>Wednesday, Feb 4</th>
-		<th>Thursday, Feb 5</th>
-		<th>Friday, Feb 6</th>
-		<th>Later</th>
+		<th></th>
+		{% for i in dates %}
+		    <th>{{ i }}</th>
+		{% endfor %}
 	    </tr>
 	</table>
 	<table id="innerTable">
@@ -36,13 +45,13 @@
 		    <!-- later assignments have special format -->
 		    <td>
 			{% for k in i|last_elem %}
-			    {{ k.2 }} ({{ k.0 }}) -- {{ k.1 }}: <br><br>
+			    {{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }}: <br><br>
 		            &nbsp;&nbsp;&nbsp;&nbsp;{{ k.3 }} <br><br><br><br>
 			{% endfor %}
 		    </td>
 		</tr>
 	    {% endfor %}
-	</table><br>
-	<div class="weeklyView" id="copyright"> Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.</div>
+	</table>
+	<div class="centered-horizontal" id="copyright"> Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.</div>
     </body>
 </html>

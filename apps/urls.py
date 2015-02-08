@@ -5,6 +5,7 @@ from django.conf      import settings
 
 urlpatterns = patterns('hhms.views',
                        url(r'^$',               'login'      ),
+                       url(r'^weekly/$',       'weekly'     ),
 )
 
 urlpatterns += patterns('',
