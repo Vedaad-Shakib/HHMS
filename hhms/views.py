@@ -64,8 +64,8 @@ def weekly(request):
 
     # get displayed dates
     today = date.today()
-    dates = [(today - timedelta(days=today.weekday()-i)).strftime("%A, %b %d") for i in range(6)]
-    today = today.strftime("%B %d, %Y")
+    dates = [(today - timedelta(days=today.weekday()-i)).strftime("%A, %b %d") for i in range(5)]
+    today = (today-timedelta(days=today.weekday())).strftime("%B %d, %Y")
     dates.append("Due Later")
             
     return render_to_response('studentPageWeekly.html',
