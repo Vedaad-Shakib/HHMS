@@ -20,13 +20,16 @@ body {
 /*The actual box to click for logging in*/
 #login-box {
 	text-align: center;
+	vertical-align: middle;
 	border: 4px solid white;
 	border-radius: 4px;
-	width: 100px;
-	font-size: 35px;
-	margin-left: 190px;
-	margin-top: 5px;
+	width: 150px;
+	height: 70px;
+	font-size: 42px;
+	margin-left: 170px;
+	margin-top: 25px;
 	padding: 6px;
+	padding-bottom: 8px;
 	cursor: pointer;
 	background-color: #336666;
 }

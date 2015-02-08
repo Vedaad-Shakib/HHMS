@@ -37,8 +37,12 @@
 		    {% for j in i|slice:"1:-1" %}
 		        <td>
 		            {% for k in j %}
-		                {{ k.1 }} ({{ k.0 }}): <br><br>
-			        &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }} <br><br><br><br>
+		                {% if k.2 %}
+			            {{ k.1 }} ({{ k.0 }}): <br><br>
+			            &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }} <br><br><br><br>
+			        {% else %}
+			            {{ k.1 }} ({{ k.0 }}) <br><br><br><br>
+			    {% endif %}
 			    {% endfor %}
 			</td>
 		    {% endfor %}
