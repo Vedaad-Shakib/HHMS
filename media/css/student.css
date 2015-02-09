@@ -17,6 +17,7 @@ table, th, td {
 	padding: 5px 10px;
 }
 
+/*Adjusts assignments in to align to the tops of their cells*/
 td {
 	vertical-align: top;
 }
@@ -43,6 +44,14 @@ td:nth-child(odd), th:nth-child(odd) {
 	min-width: 14.286%;
 	width: 14.286%;
 	max-width: 14.286%;
+}
+
+/*A thin black line for assignment separators*/
+hr {
+	color: black;
+	border: 0px solid black;
+	background-color: black;
+	height: 1px;
 }
 
 /*The header on top of each page with the logo and title*/
