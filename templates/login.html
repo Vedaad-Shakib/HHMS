@@ -1,5 +1,6 @@
 <html>
     <head>
+	<title> HHMS 2.0 </title>
 	<link rel="stylesheet" type="text/css" href="/media/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/media/css/style.css">
 	<link rel="stylesheet" type="text/css" href="/media/css/login.css">
@@ -8,7 +9,7 @@
     <body>
 	{% if error %}
 	    <div class="centered">
-		<p> It seems you are using {{ mode }} mode on PCR. Please switch to month view on PCR to use HHMS. </p>
+		<p> It seems you are using {{ mode }} mode on PCR. Please switch to month or week view on PCR to use HHMS. </p>
 	    </div>
 	{% else %}
        	    <div class="centered" id="content-box">
