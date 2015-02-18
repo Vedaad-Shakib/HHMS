@@ -33,7 +33,7 @@ def weekly(request):
         page  = getPage(str(username), str(password))
         
     currMonth = parsePage(page)
-
+    
     # parsing only supports month mode
     mode = getMode(page).lower()
     if mode != "month":
