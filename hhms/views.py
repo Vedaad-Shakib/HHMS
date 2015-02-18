@@ -31,7 +31,6 @@ def weekly(request):
     # strange error that you sometimes have to send two requests
     if "Student Portal Login" in page:
         page  = getPage(str(username), str(password))
-        a=b
         
     currMonth = parsePage(page)
 
