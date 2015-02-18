@@ -26,10 +26,10 @@ def weekly(request):
     except:
         return HttpResponseRedirect("/")
     
-    page      = getPage(str(username), str(password))
+    page      = getPage(getAuth(str(username), str(password)))
     
     # strange error that you sometimes have to send two requests
-    if "Student Portal Login" in page:
+    if "Student Portal Login" in page or "Object moved to" in page:
         page  = getPage(str(username), str(password))
         
     currMonth = parsePage(page)
@@ -44,7 +44,13 @@ def weekly(request):
 
     # a timedelta to add to date such that friday, saturday, and sunday display next week's schedule
     weekDelta = timedelta(2, 33600) # difference between monday 0:00, "start" of week, and friday 2:40, when school starts
-    # parse 
+
+    # parse into following 4d list:
+    # first dimension: all classes (0th elementh is name of class)
+    # second dimension: all days
+    # third dimension: assignments for that day for that class
+    # fourth dimension: the information contained within that assignment (type, title, description)
+    #                   if it's the last day, the information contained is (type, date, title, description)
     homework = []
     classes = {}
     nClasses = 0
@@ -65,9 +71,15 @@ def weekly(request):
 
     # remove duplicates (sometimes PCR source code has duplicates)
     for i in range(len(homework)):
-        homework[i][-1].sort(key=lambda x: (x[0], x[1], x[2], x[3]))
-        for j in range(len(homework[i][-1])-1, 0, -1):
-            if homework[i][-1][j] == homework[i][-1][j-1]: del(homework[i][-1][j])
+        for j in range(len(homework[i])):
+            if j == 0:
+                continue
+            if j == len(homework[i])-1:
+                homework[i][j].sort(key=lambda x: (x[0], x[1], x[2], x[3]))
+            else:
+                homework[i][j].sort(key=lambda x: (x[0], x[1], x[2]))
+            for k in range(len(homework[i][j])-1, 0, -1):
+                if homework[i][j][k] == homework[i][j][k-1]: del(homework[i][j][k])
 
     # get displayed dates
     today = datetime.today()

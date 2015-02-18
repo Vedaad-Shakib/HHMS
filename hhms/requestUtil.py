@@ -51,8 +51,8 @@ def parsePage(text):
         tmp = []
         nameEnd = max(max(max(i["title"].find("MTRF"), i["title"].find("MWRF")), i["title"].find("MTWF")), i["title"].find("MTWR"))-7
         nameStart = i["title"].find("\r")
-        body = [j.strip() for j in i.find_all(class_="rsAptContent")[0].find_all("div")[2].getText().split("\n")]
-        dates = [map(int, j.split("/")) for j in re.findall("\d+/\d+/\d+", body[3])]
+        body  = [j.strip() for j in i.find_all(class_="rsAptContent")[0].find_all("div")[3].getText().split("\n") if j.strip()]
+        dates = [map(int, j.split("/")) for j in re.findall("\d+/\d+/\d+", body[0])]
 
         tmp.append(i["title"][:nameStart])
         tmp.append(i["title"][nameStart+2:nameEnd])
@@ -60,7 +60,8 @@ def parsePage(text):
         try: tmp.append(datetime(dates[1][2], dates[1][0], dates[1][1]))
         except: tmp.append(datetime(dates[0][2], dates[0][0], dates[0][1]))
         tmp.append(i["title"][nameEnd+13:])
-        tmp.append(body[10])
+        try: tmp.append(body[2])
+        except: tmp.append("") # no description
         
         homework.append(tmp)
     return homework
