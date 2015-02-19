@@ -30,17 +30,17 @@ def weekly(request):
     
     # strange error that you sometimes have to send two requests
     if "Student Portal Login" in page or "Object moved to" in page:
-        page  = getPage(str(username), str(password))
+        page  = getPage(getAuth(str(username), str(password)))
         
-    currMonth = parsePage(page)
-    
     # parsing only supports month mode
     mode = getMode(page).lower()
-    if mode != "month":
+    if mode != "month" and mode != "week":
         return render_to_response('login.html',
                                   {"error": True,
                                    "mode": mode,},
                                   context_instance=RequestContext(request))
+
+    currMonth = parsePage(page)
 
     # a timedelta to add to date such that friday, saturday, and sunday display next week's schedule
     weekDelta = timedelta(2, 33600) # difference between monday 0:00, "start" of week, and friday 2:40, when school starts
