@@ -4,8 +4,9 @@ from django.conf.urls import include
 from django.conf      import settings
 
 urlpatterns = patterns('hhms.views',
-                       url(r'^$',               'login'      ),
-                       url(r'^weekly/$',       'weekly'     ),
+                       url(r'^$',           'login' ),
+                       url(r'^weekly/$',    'weekly'),
+                       url(r'^daily/$',     'daily' ),
 )
 
 urlpatterns += patterns('',

@@ -18,6 +18,23 @@ def login(request):
                                   {},
                                   context_instance=RequestContext(request))
 
+'''def daily(request):
+    #if there is post data
+    try:
+        username = request.POST["username"]
+        password = request.POST["password"]
+    except:
+        return HttpResponseRedirect("/")
+
+    page = getPage(getAuth(str(username), str(password)))
+
+    #strange error that you sometimes have to sent two requests
+    if "Student Portal Login" in page or "Object moved to" in page:
+        page = getPage(getAuth(str(username), str(password)))
+
+    currMonth = parsePage(page)
+'''
+
 def weekly(request):
     # if there is post data
     try:
@@ -30,7 +47,7 @@ def weekly(request):
     
     # strange error that you sometimes have to send two requests
     if "Student Portal Login" in page or "Object moved to" in page:
-        page  = getPage(str(username), str(password))
+        page  = getPage(getAuth(str(username), str(password)))
         
     currMonth = parsePage(page)
     
