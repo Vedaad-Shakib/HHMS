@@ -1,7 +1,7 @@
 # Django settings for HHMS project.
 
-ROOT_HTTP   = '/Users/farzin/HHMS/'
 ROOT_HTTP   = '/Users/atierno/Projects/HHMS/'
+ROOT_HTTP   = '/Users/farzin/HHMS/'
 PROJECT_URL = 'http://127.0.0.1:8000/'
 
 DEBUG = True
@@ -23,6 +23,8 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.                                                                                                        
     }
 }
+
+SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts

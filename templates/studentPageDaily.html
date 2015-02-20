@@ -1,56 +1,79 @@
+{% load get_range %}
+{% load last_elem %}
 <html>
     <head>
-		<title> HHMS 2.0 </title>
-		<link rel="stylesheet" type="text/css" href="css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link rel="stylesheet" type="text/css" href="css/student.css">
-
-		<link rel="shortcut icon" href="/media/img/favicon.ico" />
-
-		<meta name="Copyright" content="Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.">
+	<title> HHMS 2.0 </title>
+	<link rel="stylesheet" type="text/css" href="media/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="media/css/style.css">
+	<link rel="stylesheet" type="text/css" href="media/css/student.css">
+	
+	<link rel="shortcut icon" href="/media/img/favicon.ico" />
+	
+	<meta name="Copyright" content="Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.">
     </head>
     <body class="daily-view">
-		<div id="header"><img id="logo" src="logo.gif">
-		    Harker Homework Management System 2.0 
-		    <span id="account-info">Hi, Andrew Tierno! <br> Not you? <a href="index.html">Logout</a></span>
-		</div>
-		<div class="centered-horizontal" id="assignment-head">
-		    <h1>
-			<span id="assignment-date">Assignments for February 7th, 2015</span>
-			<span id="left-arrow">&#8249;</span>
-			<span id="right-arrow">&#8250;</span>
-			<br>
-			<a id="switch-view" href="studentPageWeekly.html">Weekly View</a>
-		    </h1>
-		</div>
+	<div id="header"><img id="logo" src="media/img/logo.gif">
+	    Harker Homework Management System 2.0 
+	    <span id="account-info">Hi, {{ name }}! <br> Not you? <a href="/">Logout</a></span>
+	</div>
+	<div class="centered-horizontal" id="assignment-head">
+	    <h1>
+		<span id="assignment-date">Assignments for {{ today }}</span>
+		<span id="left-arrow">&#8249;</span>
+		<span id="right-arrow">&#8250;</span>
+		<br>
+		<a id="switch-view" href="/weekly/">Weekly View</a>
+	    </h1>
+	</div>
 	
 	
-		<table id="headerTable">
-		    <tr>
-			<th></th>
-			<th>Today</th>
-			<th>Tomorrow</th>
-			<th>Due Later</th>
-		    </tr>
-		</table>
-		
-		<table id="innerTable">
-		    <tr>
-			<th>AP Calculus BC</th>
-			<td>Chap 9.2 (BC: Classwork) <br><br>
-			    Slope Fields and Euler's Method
+	<table id="headerTable">
+	    <tr>
+		<th></th>
+		{% for i in dates %}
+		    <th>{{ i }}</th>
+		{% endfor %}
+	    </tr>
+	</table>
+	
+	<table id="innerTable">
+	    	    {% for i in homework %}
+	        <tr>
+		    <th>{{ i.0 }}</th>
+		    {% for j in i|slice:"1:-1" %}
+		        <td>
+			    {% for k in j %}
+			    <!-- if there is an assignment description -->
+			        {% if k.2 %}
+			            <b>{{ k.1 }} ({{ k.0 }}):</b> <br>
+				    &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }}
+				    <!-- if it is the last one, no horizontal line -->
+				    {% if forloop.counter != j|length %}
+				        <hr>
+			            {% endif %}
+			        {% else %}
+				    <b>{{ k.1 }} ({{ k.0 }})</b>
+				    {% if forloop.counter != j|length %}
+				        <hr>
+				    {% endif %}
+				{% endif %}
+			    {% endfor %}
 			</td>
-			<td>Chap 9.2 (BC: Homework) <br><br>
-			    p. 616: 3 - 6 (OL), 11, 13, 15 (MM), 21, 23 <br><br>
-			    Here is the slope field creator that I showed in class <br><br>
-			    Here is an Euler's Method example <br> <br>
-			    Chap 9.4 (BC: Classwork)
-			    Models for Population Growth
-			</td>
-			<td></td>
-		    </tr>
-		</table>
-
-		<div class="centered-horizontal" id="copyright">Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.</div>
+		    {% endfor %}
+		    <!-- ongoing assignments have special format -->
+		    <td>
+		    {% for k in i|last_elem %}
+		        <b>{{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }}: </b> <br>
+			&nbsp;&nbsp;&nbsp;&nbsp;{{ k.3 }}
+			{% if forloop.counter != i|last_elem|length %}
+			    <hr>
+			{% endif %}
+		    {% endfor %}
+		    </td>
+		</tr>
+	    {% endfor %}
+	</table>
+	
+	<div class="centered-horizontal" id="copyright">Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.</div>
     </body>
 </html>

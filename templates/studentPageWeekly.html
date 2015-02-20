@@ -2,77 +2,77 @@
 {% load last_elem %}
 <html>
     <head>
-		<title> HHMS 2.0 </title>
-		<link rel="stylesheet" type="text/css" href="media/css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="media/css/style.css">
-		<link rel="stylesheet" type="text/css" href="media/css/student.css">
-
-		<link rel="shortcut icon" href="/media/img/favicon.ico" />
-
-		<meta name="Copyright" content="Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.">
+	<title> HHMS 2.0 </title>
+	<link rel="stylesheet" type="text/css" href="media/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="media/css/style.css">
+	<link rel="stylesheet" type="text/css" href="media/css/student.css">
+	
+	<link rel="shortcut icon" href="/media/img/favicon.ico" />
+	
+	<meta name="Copyright" content="Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.">
     </head>
     <body class="weekly-view">
-		<div id="header"><img id="logo" src="media/img/logo.gif">
-		    Harker Homework Management System 2.0 
-		    <span id="account-info">Hi, {{ name }}! <br> Not you? <a href="/">Logout</a></span>
-		</div>
-		<div class="assignment-head-wrapper"></div>
-		<div class="centered-horizontal" id="assignment-head">
-		    <h1>
-			<span id="assignment-date">Assignments for the Week of {{ today }}</span>
-			<span id="left-arrow">&#8249;</span>
-			<span id="right-arrow">&#8250;</span>
-			<br>
-			<a id="switch-view" href="studentPageDaily.html">Daily View</a>
-		    </h1>
-		</div>
-
-		<table id="headerTable">
-		    <tr>
-			<th></th>
-			{% for i in dates %}
-			    <th>{{ i }}</th>
-			{% endfor %}
-		    </tr>
-		</table>
-
-		<table id="innerTable">
-		    {% for i in homework %}
-		        <tr>
-			    <th>{{ i.0 }}</th>
-			    {% for j in i|slice:"1:-1" %}
-			        <td>
-			            {% for k in j %}
-				        <!-- if there is an assignment description -->
-			                {% if k.2 %}
-				            <b>{{ k.1 }} ({{ k.0 }}):</b> <br>
-					    &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }}
-					    <!-- if it is the last one, no horizontal line -->
-				            {% if forloop.counter != j|length %}
-					        <hr>
-					    {% endif %}
-				        {% else %}
-				            <b>{{ k.1 }} ({{ k.0 }})</b>
-					    {% if forloop.counter != j|length %}
-					        <hr>
-					    {% endif %}
-				    {% endif %}
-				    {% endfor %}
-				</td>
-			    {% endfor %}
-			    <!-- ongoing assignments have special format -->
-			    <td>
-				{% for k in i|last_elem %}
-				    <b>{{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }}: </b> <br>
-			            &nbsp;&nbsp;&nbsp;&nbsp;{{ k.3 }}
-				    {% if forloop.counter != i|last_elem|length %}
+	<div id="header"><img id="logo" src="media/img/logo.gif">
+	    Harker Homework Management System 2.0 
+	    <span id="account-info">Hi, {{ name }}! <br> Not you? <a href="/">Logout</a></span>
+	</div>
+	<div class="assignment-head-wrapper"></div>
+	<div class="centered-horizontal" id="assignment-head">
+	    <h1>
+		<span id="assignment-date">Assignments for the Week of {{ today }}</span>
+		<span id="left-arrow">&#8249;</span>
+		<span id="right-arrow">&#8250;</span>
+		<br>
+		<a id="switch-view" href="/daily/">Daily View</a>
+	    </h1>
+	</div>
+	
+	<table id="headerTable">
+	    <tr>
+		<th></th>
+		{% for i in dates %}
+		    <th>{{ i }}</th>
+		{% endfor %}
+	    </tr>
+	</table>
+	
+	<table id="innerTable">
+	    {% for i in homework %}
+	        <tr>
+		    <th>{{ i.0 }}</th>
+		    {% for j in i|slice:"1:-1" %}
+		        <td>
+			    {% for k in j %}
+			    <!-- if there is an assignment description -->
+			        {% if k.2 %}
+			            <b>{{ k.1 }} ({{ k.0 }}):</b> <br>
+				    &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }}
+				    <!-- if it is the last one, no horizontal line -->
+				    {% if forloop.counter != j|length %}
+				        <hr>
+			            {% endif %}
+			        {% else %}
+				    <b>{{ k.1 }} ({{ k.0 }})</b>
+				    {% if forloop.counter != j|length %}
 				        <hr>
 				    {% endif %}
-				{% endfor %}
-			    </td>
-			</tr>
+				{% endif %}
+			    {% endfor %}
+			</td>
 		    {% endfor %}
-		</table>
+		    <!-- ongoing assignments have special format -->
+		    <td>
+		    {% for k in i|last_elem %}
+		        <b>{{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }}: </b> <br>
+			&nbsp;&nbsp;&nbsp;&nbsp;{{ k.3 }}
+			{% if forloop.counter != i|last_elem|length %}
+			    <hr>
+			{% endif %}
+		    {% endfor %}
+		    </td>
+		</tr>
+	    {% endfor %}
+	</table>
 
 		<div class="centered-horizontal" id="copyright"> Copyright (c) 2015 by Andrew Tierno and Vedaad Shakib. All rights reserved.</div>
     </body>
