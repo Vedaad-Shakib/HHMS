@@ -96,6 +96,9 @@ def daily(request):
 
 
 def weekly(request):
+    username = None
+    password = None
+    
     # if there is post data or previous cookie data
     try:
         username = request.POST["username"]
@@ -164,9 +167,9 @@ def weekly(request):
                 if homework[i][j][k] == homework[i][j][k-1]: del(homework[i][j][k])
 
     # get displayed dates
-    today = datetime.today()
+    today = datetime.today() + weekDelta
     dates = [(today - timedelta(days=today.weekday()-i)).strftime("%A, %b %d") for i in range(5)]
-    today = (today-timedelta(days=today.weekday())).strftime("%B %d, %Y")
+    today = (today - timedelta(days=today.weekday())).strftime("%B %d, %Y")
     dates.append("Due Later")
 
     return render_to_response('studentPageWeekly.html',
