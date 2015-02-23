@@ -1,6 +1,6 @@
 <html>
     <head>
-	<title> HHMS 2.0 </title>
+	<title> HHMS </title>
 	<link rel="stylesheet" type="text/css" href="/media/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/media/css/style.css">
 	<link rel="stylesheet" type="text/css" href="/media/css/login.css">
@@ -16,7 +16,7 @@
 	    </div>
 	{% else %}
        	    <div class="centered" id="content-box">
-		<span id="welcome-text">Welcome to HHMS 2.0</span><br><br>
+		<span id="welcome-text">Welcome to HHMS</span><br><br>
 		<form id="form" method="post" action="/weekly/" novalidate> {% csrf_token %}
 		    <input class="input-field" type="text" name="username" placeholder="Username"><br>
 		    <input class="input-field" type="password" name="password" placeholder="Password"><br>
