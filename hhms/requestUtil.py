@@ -11,16 +11,15 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-def getPage(auth):
-    source = StringIO()
+def getSession():
+    header = StringIO()
     c = pycurl.Curl()
-    c.setopt(c.COOKIE, ".ASPXAUTH="+auth+"; ASP.NET_SessionId=kvjstdjnxg5eryjobhrj1mc2; pcrSchool=Harker; WebSiteApplication=97")
     c.setopt(c.URL, "https://webappsca.pcrsoft.com/Clue/Student-Assignments/7536")
-    c.setopt(c.WRITEFUNCTION, source.write)
+    c.setopt(c.HEADERFUNCTION, header.write)
     c.perform()
     c.close()
-
-    return source.getvalue()
+    
+    return re.findall("Set-Cookie: ASP\.NET_SessionId=.*?;", header.getvalue())[0][30:-1]
 
 def getAuth(username, password):
     c = pycurl.Curl()
@@ -36,6 +35,17 @@ def getAuth(username, password):
     c.close()
 
     return re.findall("Set-Cookie: \.ASPXAUTH=.*?;", header.getvalue())[0][22:-1]
+
+def getPage(auth):
+    source = StringIO()
+    c = pycurl.Curl()
+    c.setopt(c.COOKIE, ".ASPXAUTH="+auth+"; ASP.NET_SessionId="+getSession()+"; pcrSchool=Harker; WebSiteApplication=97")
+    c.setopt(c.URL, "https://webappsca.pcrsoft.com/Clue/Student-Assignments/7536")
+    c.setopt(c.WRITEFUNCTION, source.write)
+    c.perform()
+    c.close()
+
+    return source.getvalue()
 
 def getMode(text):
     soup = BeautifulSoup(text)
