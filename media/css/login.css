@@ -15,6 +15,7 @@ body {
 /*The "Welcome to HHMS" Text on top of the Login Request*/
 #welcome-text {
 	font-size: 50px;
+	margin-left: 50px;
 }
 
 /*The actual box to click for logging in*/
