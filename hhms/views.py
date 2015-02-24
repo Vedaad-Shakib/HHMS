@@ -86,6 +86,7 @@ def daily(request):
                 if homework[i][j][k] == homework[i][j][k-1]: del(homework[i][j][k])
 
     dates = [today.strftime("%A, %b %d"), tomorrow.strftime("%A, %b %d"), "Due Later"]
+    today = today.strftime("%B %d, %Y")
 
     return render_to_response("studentPageDaily.html",
                               {"homework": homework,
