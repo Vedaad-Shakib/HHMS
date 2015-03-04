@@ -41,6 +41,8 @@ def getPage(auth):
     c = pycurl.Curl()
     c.setopt(c.COOKIE, ".ASPXAUTH="+auth+"; ASP.NET_SessionId="+getSession()+"; pcrSchool=Harker; WebSiteApplication=97")
     c.setopt(c.URL, "https://webappsca.pcrsoft.com/Clue/Student-Assignments/7536")
+    postFields = open("hhms/monthPost.txt", "r").read()
+    c.setopt(c.POSTFIELDS, postFields) # invariably get the month
     c.setopt(c.WRITEFUNCTION, source.write)
     c.perform()
     c.close()

@@ -182,5 +182,7 @@ def weekly(request):
                                "today":    today},
                               context_instance=RequestContext(request))
         
-        
- 
+def dueLater(request, auth):
+    currMonth = request.session["currMonth"]
+    
+
