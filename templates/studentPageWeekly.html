@@ -46,7 +46,7 @@
 			    <!-- if there is an assignment description -->
 			        {% if k.2 %}
 			            <b>{{ k.1 }} ({{ k.0 }}):</b> <br>
-				    &nbsp;&nbsp;&nbsp;&nbsp;{{ k.2 }}
+				    &nbsp;&nbsp;&nbsp;&nbsp; {% autoescape off %} {{ k.2 }} {% endautoescape %}
 				    <!-- if it is the last one, no horizontal line -->
 				    {% if forloop.counter != j|length %}
 				        <hr>
