@@ -41,8 +41,6 @@ def getPage(auth):
     c = pycurl.Curl()
     c.setopt(c.COOKIE, ".ASPXAUTH="+auth+"; ASP.NET_SessionId="+getSession()+"; pcrSchool=Harker; WebSiteApplication=97")
     c.setopt(c.URL, "https://webappsca.pcrsoft.com/Clue/Student-Assignments/7536")
-    postFields = open("hhms/monthPost.txt", "r").read()
-    c.setopt(c.POSTFIELDS, postFields) # invariably get the month
     c.setopt(c.WRITEFUNCTION, source.write)
     c.perform()
     c.close()
@@ -71,7 +69,7 @@ def parsePage(text):
     content = soup.find_all(class_="rsContentTable")[0]
     homework = []
     # parses content
-    # contains type, class name, start date, end date, assignment title, assignment details
+    # contains type, class name, start date, end date, assignment title, assignment details, links
     for i in content.find_all(class_="rsAptSimple"):
         tmp = []
         nameEnd = max(max(max(i["title"].find("MTRF"), i["title"].find("MWRF")), i["title"].find("MTWF")), i["title"].find("MTWR"))-7
@@ -87,6 +85,11 @@ def parsePage(text):
         tmp.append(i["title"][nameEnd+13:])
         try: tmp.append(body[2])
         except: tmp.append("") # no description
+
+        links = {j.getText(): j["href"].replace("..", "https://webappsca.pcrsoft.com/Clue") for j in i.find_all("a")}
+
+        #if len(links.keys()) > 0: a=b
+        for i in links.keys(): tmp[-1] = tmp[-1].replace(i, "<a href=\""+links[i]+"\">"+i+"</a>")
         
         homework.append(tmp)
     return homework
