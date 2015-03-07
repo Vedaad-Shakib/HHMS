@@ -83,13 +83,21 @@ def parsePage(text):
         try: tmp.append(datetime(dates[1][2], dates[1][0], dates[1][1]))
         except: tmp.append(datetime(dates[0][2], dates[0][0], dates[0][1]))
         tmp.append(i["title"][nameEnd+13:])
-        try: tmp.append(body[2])
-        except: tmp.append("") # no description
 
-        links = {j.getText(): j["href"].replace("..", "https://webappsca.pcrsoft.com/Clue") for j in i.find_all("a")}
+        desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[3].children)[8:])).strip() # get raw description
+        desc = re.sub("(<br>|</br>|</p>)*$", "", desc).strip() # strip <br> and whitespace and <p> from ends
+        desc = re.sub("^<p class=.*?>", "", desc).strip()
+        desc = desc.replace("href=\"..", "href=\"https://webappsca.pcrsoft.com/Clue") # fix relative links
+        if "Open Book" in desc:
+            del(content)
+            del(soup)
+            del(i)
+            a=b
+        tmp.append(desc)
 
-        #if len(links.keys()) > 0: a=b
-        for i in links.keys(): tmp[-1] = tmp[-1].replace(i, "<a href=\""+links[i]+"\">"+i+"</a>")
+        #links = {j.getText(): j["href"].replace("..", "https://webappsca.pcrsoft.com/Clue") for j in i.find_all("a")} # get all links
+
+        #for i in links.keys(): tmp[-1] = tmp[-1].replace(i, "<a href=\""+links[i]+"\">"+i+"</a>") # replace links
         
         homework.append(tmp)
     return homework

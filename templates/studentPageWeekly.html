@@ -45,8 +45,8 @@
 			    {% for k in j %}
 			    <!-- if there is an assignment description -->
 			        {% if k.2 %}
-			            <b>{{ k.1 }} ({{ k.0 }}):</b> <br>
-				    &nbsp;&nbsp;&nbsp;&nbsp; {% autoescape off %} {{ k.2 }} {% endautoescape %}
+			            <b>{{ k.1 }} ({{ k.0 }})</b> <br>
+				    <br> {% autoescape off %} {{ k.2 }} {% endautoescape %}
 				    <!-- if it is the last one, no horizontal line -->
 				    {% if forloop.counter != j|length %}
 				        <hr>
@@ -63,8 +63,8 @@
 		    <!-- ongoing assignments have special format -->
 		    <td>
 		    {% for k in i|last_elem %}
-		        <b>{{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }}: </b> <br>
-			&nbsp;&nbsp;&nbsp;&nbsp;{{ k.3 }}
+		        <b>{{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }} </b> <br>
+			<br> {{ k.3 }}
 			{% if forloop.counter != i|last_elem|length %}
 			    <hr>
 			{% endif %}
