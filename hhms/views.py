@@ -98,9 +98,6 @@ def daily(request):
 
 
 def weekly(request):
-    username = None
-    password = None
-    
     # if there is post data or previous cookie data
     try:
         username = request.POST["username"]
@@ -110,6 +107,7 @@ def weekly(request):
     except:
         try:
             currMonth = request.session["schedule"]
+            username  = request.session["username"]
             # can't store datetime in cookie, so 
             mode = "cookie"
         except:
@@ -181,8 +179,5 @@ def weekly(request):
                                "dates":    dates,
                                "today":    today},
                               context_instance=RequestContext(request))
-        
-def dueLater(request, auth):
-    currMonth = request.session["currMonth"]
     
 
