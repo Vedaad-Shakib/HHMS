@@ -86,7 +86,7 @@ def parsePage(text):
 
         desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[3].children)[8:])).strip() # get raw description
         desc = re.sub("(<br>|</br>|</p>)*$", "", desc).strip() # strip <br> and whitespace and <p> from ends
-        desc = re.sub("^<p class=.*?>", "", desc).strip()
+        desc = re.sub("^(<p class=.*?>|<br>|</br>)*", "", desc).strip()
         desc = desc.replace("href=\"..", "href=\"https://webappsca.pcrsoft.com/Clue") # fix relative links
         if "Open Book" in desc:
             del(content)
