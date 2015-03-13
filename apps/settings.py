@@ -1,8 +1,9 @@
 # Django settings for HHMS project.
 
-import os
+import os.path as path
+import sys
 
-ROOT_HTTP   = os.path.realpath('.')
+ROOT_HTTP   = path.split(path.abspath(sys.argv[0]))[0]
 PROJECT_URL = 'http://127.0.0.1:8000/'
 
 DEBUG = True
