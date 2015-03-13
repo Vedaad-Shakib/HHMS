@@ -84,7 +84,7 @@ def parsePage(text):
         except: tmp.append(datetime(dates[0][2], dates[0][0], dates[0][1]))
         tmp.append(i["title"][nameEnd+13:])
 
-        desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[3].children)[8:])).strip() # get raw description
+        desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[3].find_all("div")[0].children)[8:])).strip() # get raw description
         desc = re.sub("(<br>|</br>|</p>)*$", "", desc).strip() # strip <br> and whitespace and <p> from ends
         desc = re.sub("^(<p class=.*?>|<br>|</br>)*", "", desc).strip()
         desc = desc.replace("href=\"..", "href=\"https://webappsca.pcrsoft.com/Clue") # fix relative links
