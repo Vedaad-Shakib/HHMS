@@ -45,9 +45,8 @@ def daily(request):
         request.session["schedule"] = currMonth
 
         mode = getMode(page)
-
         # day mode has too little information
-        if mode != "month" and mode != "week":
+        if mode != "Month" and mode != "Week":
             return render_to_response("login.html",
                                       {"error": True,
                                        "mode":  mode,},
@@ -121,8 +120,8 @@ def weekly(request):
             page  = getPage(getAuth(str(username), str(password)))
             
         # parsing only supports month mode
-        mode = getMode(page).lower()
-        if mode != "month" and mode != "week":
+        mode = getMode(page)
+        if mode != "Month" and mode != "Week":
             return render_to_response('login.html',
                                       {"error": True,
                                        "mode":  mode,},
