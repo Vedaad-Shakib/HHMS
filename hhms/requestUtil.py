@@ -41,11 +41,15 @@ def getPage(auth):
     source = StringIO()
     c = pycurl.Curl()
     c.setopt(c.COOKIE, ".ASPXAUTH="+auth+"; ASP.NET_SessionId="+getSession()+"; pcrSchool=Harker; WebSiteApplication=97")
-    c.setopt(c.COOKIEJAR, "cookie.txt")
-    c.setopt(c.COOKIEFILE, "cookie.txt")
-    c.setopt(c.FOLLOWLOCATION, 0)
+    #c.setopt(c.COOKIEJAR, "cookie.txt")
+    #c.setopt(c.COOKIEFILE, "cookie.txt")
+    
+    c.setopt(c.FOLLOWLOCATION, 1)
     c.setopt(c.URL, "https://webappsca.pcrsoft.com/Clue/Student-Assignments/7536")
     c.setopt(c.WRITEFUNCTION, source.write)
+    
+    c.setopt(c.SSL_VERIFYPEER, False)
+    c.setopt(c.SSL_VERIFYHOST, False)
     c.perform()
     c.close()
 
