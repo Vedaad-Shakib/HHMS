@@ -39,7 +39,6 @@ def daily(request):
         #strange error that you sometimes have to sent two requests
         if "Student Portal Login" in page or "Object moved to" in page:
             page = getPage(getAuth(str(username), str(password)))
-            a=b
 
         currMonth = parsePage(page)
         request.session["schedule"] = currMonth
@@ -118,7 +117,6 @@ def weekly(request):
         # strange error that you sometimes have to send two requests
         if "Student Portal Login" in page or "Object moved to" in page:
             page  = getPage(getAuth(str(username), str(password)))
-            a=b
             
         # parsing only supports month mode
         mode = getMode(page)
