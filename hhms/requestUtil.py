@@ -41,6 +41,10 @@ def getPage(auth):
     source = StringIO()
     c = pycurl.Curl()
     c.setopt(c.COOKIE, ".ASPXAUTH="+auth+"; ASP.NET_SessionId="+getSession()+"; pcrSchool=Harker; WebSiteApplication=97")
+    '''
+    c.setopt(c.POST, 1)
+    c.setopt(c.POSTFIELDS, open("hhms/authPostNext.txt", "r").read())
+    '''
     #c.setopt(c.COOKIEJAR, "cookie.txt")
     #c.setopt(c.COOKIEFILE, "cookie.txt")
     
@@ -82,7 +86,7 @@ def parsePage(text):
         tmp = []
         nameEnd = max(max(max(i["title"].find("MTRF"), i["title"].find("MWRF")), i["title"].find("MTWF")), i["title"].find("MTWR"))-7
         nameStart = i["title"].find("\r")
-        body  = [j.strip() for j in i.find_all(class_="rsAptContent")[0].find_all("div")[3].getText().split("\n") if j.strip()]
+        body  = [j.strip() for j in i.find_all(class_="rsAptContent")[0].find_all("div")[4].getText().split("\n") if j.strip()]
         dates = [map(int, j.split("/")) for j in re.findall("\d+/\d+/\d+", body[0])]
 
         tmp.append(i["title"][:nameStart])
@@ -93,12 +97,12 @@ def parsePage(text):
         tmp.append(i["title"][nameEnd+13:])
 
         if getMode(text) == "Week":
-            desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[3].find_all("div")[0].children)[8:])).strip() # get raw description
+            desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[4].find_all("div")[0].children)[8:])).strip() # get raw description
             desc = re.sub("(<br>|</br>|</p>)*$", "", desc).strip() # strip <br> and whitespace and <p> from ends
             desc = re.sub("^(<p class=.*?>|<br>|</br>)*", "", desc).strip()
             desc = desc.replace("href=\"..", "href=\"https://webappsca.pcrsoft.com/Clue") # fix relative links
         if getMode(text) == "Month":
-            desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[3].children)[8:])).strip() # get raw description
+            desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[4].children)[8:])).strip() # get raw description
             desc = re.sub("(<br>|</br>|</p>)*$", "", desc).strip() # strip <br> and whitespace and <p> from ends
             desc = re.sub("^(<p class=.*?>|<br>|</br>)*", "", desc).strip()
             desc = desc.replace("href=\"..", "href=\"https://webappsca.pcrsoft.com/Clue") # fix relative links

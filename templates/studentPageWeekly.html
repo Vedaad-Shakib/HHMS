@@ -64,7 +64,7 @@
 		    <td>
 		    {% for k in i|last_elem %}
 		        <b>{{ k.2 }} ({{ k.0 }}) &#8212; {{ k.1 }} </b> <br>
-			<br> {{ k.3 }}
+			<br> {% autoescape off %} {{ k.3 }} {% endautoescape %}
 			{% if forloop.counter != i|last_elem|length %}
 			    <hr>
 			{% endif %}
