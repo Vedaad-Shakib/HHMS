@@ -7,6 +7,7 @@ urlpatterns = patterns('hhms.views',
                        url(r'^$',           'login' ),
                        url(r'^weekly/$',    'weekly'),
                        url(r'^daily/$',     'daily' ),
+                       url(r'^faq/$',       'faq'   )
 )
 
 urlpatterns += patterns('',

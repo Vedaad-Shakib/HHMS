@@ -18,6 +18,11 @@ def login(request):
                                   {},
                                   context_instance=RequestContext(request))
 
+def faq(request):
+    return render_to_response('faq.html',
+                              {},
+                              context_instance=RequestContext(request))
+
 def daily(request):
     # check for post data or set cookie (in the case of switching back and forth between weekly and daily)
     try:

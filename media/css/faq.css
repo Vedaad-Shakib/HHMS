@@ -1,0 +1,12 @@
+h4 {
+	margin-left: 0.5em;
+}
+
+h5 {
+	margin-left: 2em;
+}
+
+/* Style for answers to FAQs */
+.answer {
+	font-weight: normal;
+}
