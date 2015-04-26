@@ -82,11 +82,18 @@ def parsePage(text):
     homework = []
     # parses content
     # contains type, class name, start date, end date, assignment title, assignment details, links
-    for i in content.find_all(class_="rsAptSimple"):
+    for k in range(len(content.find_all(class_="rsAptSimple"))):
+        i = content.find_all(class_="rsAptSimple")[k]
         tmp = []
         nameEnd = max(max(max(i["title"].find("MTRF"), i["title"].find("MWRF")), i["title"].find("MTWF")), i["title"].find("MTWR"))-7
         nameStart = i["title"].find("\r")
         body  = [j.strip() for j in i.find_all(class_="rsAptContent")[0].find_all("div")[4].getText().split("\n") if j.strip()]
+        if body == []:
+            body  = [j.strip() for j in i.find_all(class_="rsAptContent")[0].find_all("div")[5].getText().split("\n") if j.strip()] # PCR's a piece of shit; I have no explanation for why this works
+            switch = True # if this seemingly random phenomenon occurs, we have to adjust the other lines as well
+        else:
+            switch = False
+            
         dates = [map(int, j.split("/")) for j in re.findall("\d+/\d+/\d+", body[0])]
 
         tmp.append(i["title"][:nameStart])
@@ -97,12 +104,12 @@ def parsePage(text):
         tmp.append(i["title"][nameEnd+13:])
 
         if getMode(text) == "Week":
-            desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[4].find_all("div")[0].children)[8:])).strip() # get raw description
+            desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[4+switch].find_all("div")[0].children)[8:])).strip() # get raw description
             desc = re.sub("(<br>|</br>|</p>)*$", "", desc).strip() # strip <br> and whitespace and <p> from ends
             desc = re.sub("^(<p class=.*?>|<br>|</br>)*", "", desc).strip()
             desc = desc.replace("href=\"..", "href=\"https://webappsca.pcrsoft.com/Clue") # fix relative links
         if getMode(text) == "Month":
-            desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[4].children)[8:])).strip() # get raw description
+            desc = "".join(map(str, list(i.find_all(class_="rsAptContent")[0].find_all("div")[4+switch].children)[8:])).strip() # get raw description
             desc = re.sub("(<br>|</br>|</p>)*$", "", desc).strip() # strip <br> and whitespace and <p> from ends
             desc = re.sub("^(<p class=.*?>|<br>|</br>)*", "", desc).strip()
             desc = desc.replace("href=\"..", "href=\"https://webappsca.pcrsoft.com/Clue") # fix relative links
