@@ -162,8 +162,8 @@ def weekly(request):
         for j in range(len(homework[i])):
             if j == 0:
                 continue
-            if j == len(homework[i])-1:
-                homework[i][j].sort(key=lambda x: (x[0], x[1], x[2], x[3]))
+            #if j == len(homework[i])-1:
+                #homework[i][j].sort(key=lambda x: (x[0], x[1], x[2], x[3]))
             else:
                 homework[i][j].sort(key=lambda x: (x[0], x[1], x[2]))
             for k in range(len(homework[i][j])-1, 0, -1):
