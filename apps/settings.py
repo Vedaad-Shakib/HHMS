@@ -3,14 +3,14 @@
 import os.path as path
 import sys
 
-ROOT_HTTP   = path.split(path.abspath(sys.argv[0]))[0]
-PROJECT_URL = 'http://127.0.0.1:8000/'
+ROOT_HTTP   = '********'
+PROJECT_URL = 'hhms.org'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('********', '********'),
 )
 
 MANAGERS = ADMINS
@@ -18,9 +18,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.                                                                                                
-        'NAME': 'hhms',                      # Or path to database file if using sqlite3.                                                                                                                 
-        'USER': 'VShakib',                      # Not used with sqlite3.                                                                                                                                  
-        'PASSWORD': 'hhms',                  # Not used with sqlite3.                                                                                                                                  
+        'NAME': 'hhms_db',                      # Or path to database file if using sqlite3.                                                                                                                 
+        'USER': '********',                      # Not used with sqlite3.                                                                                                                                  
+        'PASSWORD': '********',                  # Not used with sqlite3.                                                                                                                                  
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.                                                                                                     
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.                                                                                                        
     }
@@ -30,7 +30,7 @@ SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hhms.org']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -68,7 +68,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/home/fshakib/webapps/hhms_static'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -90,7 +90,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'g*2-r^iv3wib2s&1js%yg4@d-blr7)44g4u0&@m620(+#w9paz'
+SECRET_KEY = '********'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -130,10 +130,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.template',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-    'django_extensions',
+    'django.contrib.admindocs',
+    # 'django_extensions',
     'hhms',
     'hhms.templatetags.get_range',
 )

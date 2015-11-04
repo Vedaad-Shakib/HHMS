@@ -11,8 +11,10 @@ from datetime          import timedelta
 from datetime          import datetime
 from time              import time
 
+from StringIO import StringIO
+import pycurl
+
 def login(request):
-    start = time()
     if not request.POST:
         return render_to_response('login.html',
                                   {},
@@ -115,14 +117,18 @@ def weekly(request):
             mode = "cookie"
         except:
             return HttpResponseRedirect("/")
-    
+
+    #return HttpResponse(getPage(getAuth(str(username), str(password))))
+
     if mode == "auth":
         page      = getPage(getAuth(str(username), str(password)))
     
         # strange error that you sometimes have to send two requests
         if "Student Portal Login" in page or "Object moved to" in page:
             page  = getPage(getAuth(str(username), str(password)))
-            
+
+
+        
         # parsing only supports month mode
         mode = getMode(page)
         if mode != "Month" and mode != "Week":

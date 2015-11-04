@@ -1,15 +1,17 @@
-#!/usr/bin/python
-
-from StringIO import StringIO
-from bs4      import BeautifulSoup
-from datetime import date
-from datetime import datetime
+from StringIO  import StringIO
+from bs4       import BeautifulSoup
+from datetime  import date
+from datetime  import datetime
 import pycurl
 import re
 import time
+import os
 import sys
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
+
+BASE = os.path.dirname(os.path.abspath(__file__))
 
 def getSession():
     header = StringIO()
@@ -22,16 +24,15 @@ def getSession():
     return re.findall("Set-Cookie: ASP\.NET_SessionId=.*?;", header.getvalue())[0][30:-1]
 
 def getAuth(username, password):
-    c = pycurl.Curl()
-    c.setopt(c.COOKIE, "ASP.NET_SessionId=kvjstdjnxg5eryjobhrj1mc2; pcrSchool=Harker; WebSiteApplication=97")
-    c.setopt(c.FOLLOWLOCATION, 1)
-    c.setopt(c.POST, 1)
-    c.setopt(c.POSTFIELDS, open("hhms/authPost.txt", "r").read().replace("<USERNAME>", username).replace("<PASSWORD>", password))
-    source = StringIO()
     header = StringIO()
-    c.setopt(c.WRITEFUNCTION, source.write)
+    c = pycurl.Curl()
+    c.setopt(c.URL, "https://webappsca.pcrsoft.com/Clue/Student-Portal-Login-LDAP/8464?returnUrl=https%3a%2f%2fwebappsca.pcrsoft.com%2fClue%2fStudent-Assignments-End-Date-(No-Range)%2f18593")
+    c.setopt(c.POST, 1)
+    a = os.getcwd()
+    c.setopt(c.POSTFIELDS, open(os.path.join(BASE, "authPost.txt")).read().replace("<USERNAME>", username).replace("<PASSWORD>", password))
+    c.setopt(c.HTTPHEADER, [i.strip() for i in open(os.path.join(BASE, "authHeaders.txt"))])
     c.setopt(c.HEADERFUNCTION, header.write)
-    c.setopt(c.URL, "https://webappsca.pcrsoft.com/Clue/Student-Portal-Login-LDAP/8464")
+
     c.perform()
     c.close()
 
@@ -43,7 +44,7 @@ def getPage(auth):
     c.setopt(c.COOKIE, ".ASPXAUTH="+auth+"; ASP.NET_SessionId="+getSession()+"; pcrSchool=Harker; WebSiteApplication=97")
     '''
     c.setopt(c.POST, 1)
-    c.setopt(c.POSTFIELDS, open("hhms/authPostNext.txt", "r").read())
+    c.setopt(c.POSTFIELDS, open(os.path.join(BASE, "authPostNext.txt"), "r").read())
     '''
     #c.setopt(c.COOKIEJAR, "cookie.txt")
     #c.setopt(c.COOKIEFILE, "cookie.txt")
@@ -64,22 +65,13 @@ def getPage(auth):
 
     return source.getvalue()
 
-def getNextMonth(auth):
-    source = StringIO()
-    c = pycurl.Curl()
-    c.setopt(c.COOKIE, ".ASPXAUTH="+auth+"; ASP.NET_SessionId="+getSession()+"; pcrSchool=Harker; WebSiteApplication=97")
-    c.setopt(c.URL, "https://webappsca.pcrsoft.com/Clue/Student-Assignments/7536")
-    postFields = open("hhms/nextMonthPost.txt", "r").read()
-    c.setopt(c.POSTFIELDS, postFields) # invariably get the month
-    c.setopt(c.WRITEFUNCTION, source.write)
-    c.perform()
-    c.close()
-
-    return source.getvalue()
-
 def getMode(text):
     soup = BeautifulSoup(text)
     return str(soup.find_all(class_="rsSelected")[0].getText())
+
+def getSoup(text):
+    soup = BeautifulSoup(text)
+    return soup.prettify()
 
 def parsePage(text):
     soup = BeautifulSoup(text)

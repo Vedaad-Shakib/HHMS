@@ -1,0 +1,9 @@
+Host: webappsca.pcrsoft.com
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Origin: https://webappsca.pcrsoft.com
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Referer: https://webappsca.pcrsoft.com/Clue/Student-Portal-Login-LDAP/8464?returnUrl=https%3a%2f%2fwebappsca.pcrsoft.com%2fClue%2fStudent-Assignments-End-Date-(No-Range)%2f18593
+Cookie: ASP.NET_SessionId=wb13fjmreynyxm5ewzsnrn3q; pcrSchool=Harker; WebSiteApplication=97
