@@ -76,5 +76,11 @@
 	</table>
 	
 	<div class="centered-horizontal" id="copyright">Copyright &copy; 2015 by Vedaad Shakib and Andrew Tierno. All rights reserved.</div>
+	<script>
+	    window.onload = function(){
+	        document.getElementById("left-arrow").addEventListener("click", function(){window.location="http://hhms.org/daily?timedelta="+{{prev}}});
+    	        document.getElementById("right-arrow").addEventListener("click", function(){window.location="http://hhms.org/daily?timedelta="+{{next}}});
+	    }
+	</script>
     </body>
 </html>

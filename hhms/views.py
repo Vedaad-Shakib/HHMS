@@ -40,6 +40,11 @@ def daily(request):
         except:
             return HttpResponseRedirect("/")
 
+    if "timedelta" in request.GET:
+        dt = int(request.GET["timedelta"])
+    else:
+        dt = 0
+
     if mode == "auth":
         page = getPage(getAuth(str(username), str(password)))
 
@@ -58,8 +63,12 @@ def daily(request):
                                        "mode":  mode,},
                                       context_instance=RequestContext(request))
 
-    today = date.today()
-    tomorrow = date.today() + timedelta(1) if date.today().weekday() < 4 else today+timedelta(7-today.weekday()) # if mon-thu, tomorrow is day after; otherwise, next monday
+    today = date.today() + timedelta(dt)
+    
+    if today.weekday() < 4:
+        tomorrow = today + timedelta(1)
+    else:
+        tomorrow = today + timedelta(7-today.weekday())
 
     # parse into correct format
     homework = []
@@ -98,7 +107,9 @@ def daily(request):
                                "nClasses": nClasses,
                                "name":     str(username)[2:-1].title(),
                                "dates":    dates,
-                               "today":    today},
+                               "today":    today,
+                               "next":     str(dt+1),
+                               "prev":     str(dt-1)},
                               context_instance=RequestContext(request))
 
 
@@ -117,6 +128,11 @@ def weekly(request):
             mode = "cookie"
         except:
             return HttpResponseRedirect("/")
+
+    if "timedelta" in request.GET:
+        dt = int(request.GET["timedelta"])
+    else:
+        dt = 0
 
     #return HttpResponse(getPage(getAuth(str(username), str(password))))
 
@@ -168,15 +184,13 @@ def weekly(request):
         for j in range(len(homework[i])):
             if j == 0:
                 continue
-            #if j == len(homework[i])-1:
-                #homework[i][j].sort(key=lambda x: (x[0], x[1], x[2], x[3]))
             else:
                 homework[i][j].sort(key=lambda x: (x[0], x[1], x[2]))
             for k in range(len(homework[i][j])-1, 0, -1):
                 if homework[i][j][k] == homework[i][j][k-1]: del(homework[i][j][k])
 
     # get displayed dates
-    today = datetime.today() + weekDelta
+    today = datetime.today() + weekDelta + timedelta(dt)
     dates = [(today - timedelta(days=today.weekday()-i)).strftime("%A, %b %d") for i in range(5)]
     today = (today - timedelta(days=today.weekday())).strftime("%B %d, %Y")
     dates.append("Due Later")
@@ -186,7 +200,9 @@ def weekly(request):
                                "nClasses": nClasses,
                                "name":     str(username)[2:-1].title(),
                                "dates":    dates,
-                               "today":    today},
+                               "today":    today,
+                               "next":     str(dt+7),
+                               "prev":     str(dt-7)},
                               context_instance=RequestContext(request))
     
 

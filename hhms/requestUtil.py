@@ -57,7 +57,6 @@ def getPage(auth):
     c.setopt(c.COOKIEFILE, 'cookie.txt');
     c.setopt(c.COOKIEJAR, 'cookie.txt');
     
-    
     c.setopt(c.SSL_VERIFYPEER, False)
     c.setopt(c.SSL_VERIFYHOST, False)
     c.perform()
