@@ -3,14 +3,14 @@
 import os.path as path
 import sys
 
-ROOT_HTTP   = '/home/fshakib/webapps/hhms_django/hhms/'
+ROOT_HTTP   = '********'
 PROJECT_URL = 'hhms.org'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Vedaad Shakib', 'vedaad799@gmail.com'),
+    ('********', '********'),
 )
 
 MANAGERS = ADMINS
@@ -19,8 +19,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.                                                                                                
         'NAME': 'hhms_db',                      # Or path to database file if using sqlite3.                                                                                                                 
-        'USER': 'vedaadshakib',                      # Not used with sqlite3.                                                                                                                                  
-        'PASSWORD': 'hhms-hhms',                  # Not used with sqlite3.                                                                                                                                  
+        'USER': '********',                      # Not used with sqlite3.                                                                                                                                  
+        'PASSWORD': '********',                  # Not used with sqlite3.                                                                                                                                  
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.                                                                                                     
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.                                                                                                        
     }
@@ -90,7 +90,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'g*2-r^iv3wib2s&1js%yg4@d-blr7)44g4u0&@m620(+#w9paz'
+SECRET_KEY = '********'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
