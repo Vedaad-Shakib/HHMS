@@ -77,7 +77,7 @@ def parsePage(text):
     content = soup.find_all(class_="rsContentTable")[0]
     homework = []
     # parses content
-    # contains type, class name, start date, end date, assignment title, assignment details, links
+    # format: [type, class name, start date, end date, title, description]
     for k in range(len(content.find_all(class_="rsAptSimple"))):
         i = content.find_all(class_="rsAptSimple")[k]
         tmp = []
@@ -112,9 +112,5 @@ def parsePage(text):
 
         tmp.append(desc)
 
-        #links = {j.getText(): j["href"].replace("..", "https://webappsca.pcrsoft.com/Clue") for j in i.find_all("a")} # get all links
-
-        #for i in links.keys(): tmp[-1] = tmp[-1].replace(i, "<a href=\""+links[i]+"\">"+i+"</a>") # replace links
-        
         homework.append(tmp)
     return homework

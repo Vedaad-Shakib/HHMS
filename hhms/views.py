@@ -40,6 +40,7 @@ def daily(request):
         except:
             return HttpResponseRedirect("/")
 
+    # for viewing previous or future days
     if "timedelta" in request.GET:
         dt = int(request.GET["timedelta"])
     else:
@@ -63,8 +64,14 @@ def daily(request):
                                        "mode":  mode,},
                                       context_instance=RequestContext(request))
 
+    # today's date
     today = date.today() + timedelta(dt)
-    
+    if today.weekday() == 5:
+        today += timedelta(2)
+    if today.weekday() == 6:
+        today += timedelta(1)
+
+    # tomorrow's date, excluding weekends
     if today.weekday() < 4:
         tomorrow = today + timedelta(1)
     else:
@@ -156,27 +163,35 @@ def weekly(request):
         currMonth = parsePage(page)
         request.session["schedule"] = currMonth
 
-    # a timedelta to add to date such that friday, saturday, and sunday display next week's schedule
+    # a timedelta to add to date such that friday, saturday, and sunday display next week's schedule, essentially
+    # making it such that the week, as defined by this program, starts on friday at 2:40
     weekDelta = timedelta(2, 33600) # difference between monday 0:00, "start" of week, and friday 2:40, when school starts
-
-    # parse into following 4d list:
+    
+    today = datetime.today() + weekDelta + timedelta(dt)
+    friday = today + timedelta(4-today.weekday())
+        
+    # 4d list:
     # first dimension: all classes (0th elementh is name of class)
     # second dimension: all days
     # third dimension: assignments for that day for that class
     # fourth dimension: the information contained within that assignment (type, title, description)
-    #                   if it's the last day, the information contained is (type, date, title, description)
+    #                   for the due later list, the information contained is (type, date, title, description)
     homework = []
+    # maps class name to index in "homework" array
     classes = {}
     nClasses = 0
     for i in currMonth:
+        # i: [type, class name, start date, end date, title, description]
         if not classes.has_key(str(i[1])):
             classes[i[1]] = nClasses
             nClasses += 1
             homework.append([i[1], [], [], [], [], [], []])
 
-        if i[3].isocalendar()[1] == ((datetime.today()+weekDelta).isocalendar()[1] % 52):
-            homework[classes[str(i[1])]][i[3].weekday()+1].append([i[0], i[4], i[5]]) 
-        elif i[2] <= datetime.today() and i[3] > datetime.today()+timedelta(1) and i[0] != "Classwork":
+        # if the assignment is in this week, append it to the respective weekday
+        if i[3].isocalendar()[1] == ((today).isocalendar()[1] % 52):
+            homework[classes[str(i[1])]][i[3].weekday()+1].append([i[0], i[4], i[5]])
+        # if today is after the start date and before the end date, add it to the "Due Later" list
+        elif i[2] <= friday and i[3] > friday and i[0] != "Classwork":
             homework[classes[str(i[1])]][6].append([i[0], i[3].strftime("%m/%d/%y"), i[4], i[5]])
 
     # remove duplicates (sometimes PCR source code has duplicates)
